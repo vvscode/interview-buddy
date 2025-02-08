@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Interview buddy
 // @namespace    https://github.com/vvscode/interview-buddy
-// @version      Alpha-v1
+// @version      Alpha-v2
 // @description  Cheat online stealthily
 // @run-at       document-start
 // @author       Vasil @vvscode Vanchuk
@@ -29,8 +29,8 @@
         };
 
         // blur events
-        const windowAddEventListener = window.addEventListener.bind(window);
-        window.addEventListener = function addEventListener(event, cb, params) {
+        const windowAddEventListener = window.addEventListener.bind(unsafeWindow);
+        unsafeWindow.addEventListener = function addEventListener(event, cb, params) {
             if (event === "blur" || event === "focus") {
                 return;
             }
@@ -45,7 +45,7 @@
         const className = `highlight_asdfqweafsdfa`;
         style.textContent = `
         .${className} {
-            border: 3px solid green;
+            outline: 3px solid green;
             position: relative;
             z-index: 100000; /* Ensure it appears above other elements */
         }
